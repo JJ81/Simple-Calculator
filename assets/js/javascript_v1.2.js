@@ -3,8 +3,10 @@
 var input_item = $('.txt_item');
 var input_price = $('.txt_price');
 var order_table =  $('.item_table');
-
+var btn_add_item = $('.btn_add_item');
 var itemList = [];
+
+btn_add_item.bind('click', userInputHandler);
 
 /**
  * 유저가 입력한 값을 추출하는 기능
@@ -81,7 +83,7 @@ function createUniqueId(len){
 }
 
 /**
- * HTML을 그려넣는다. append data per a list
+ * HTML을 그려 넣는다. append data per a list
  */
 function drawList(data){
 	var html = '';
@@ -115,14 +117,17 @@ function commaNumber(val){
  * 유저의 입력창을 초기화 한다.
  */
 function resetUserInput(){
-	input_item.val();
-	input_price.val();
+	input_item.val('');
+	input_price.val('');
+	input_item.focus();
 }
 
 /**
  * 유저의 이벤트 핸들러
  */
-function userInputHandler(){
+function userInputHandler(e){
+	e.preventDefault();
+
 	var data = makeDataList();
 
 	if(!data){
@@ -130,7 +135,11 @@ function userInputHandler(){
 	}
 
 	drawList(data);
-	resetUserInput();
+
+	setTimeout(function () {
+		resetUserInput();
+	}, 300);
+
 
 	return data;
 }
