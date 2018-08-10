@@ -1,0 +1,47 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.item_menu{
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 10px;
+}
+
+.item_table{
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+.item_table th,
+.item_table td{
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+}
+
+.item_table td:first-child{
+  border-right: 1px solid #ddd;
+  text-align: center;
+}
+
+.item_table td:last-child{
+  border-right: 1px solid #ddd;
+}
+
+.item_table td,.item_table th{
+  border-right: 1px solid #ddd;
+}
+
+.txt_price{
+  text-align: right;
+}
+
+.price{
+  text-align: right !important;
+}
+
+.blind{
+  display: none;
+}
