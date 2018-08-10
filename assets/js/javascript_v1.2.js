@@ -147,3 +147,28 @@ function userInputHandler(e){
 function getWholeDatalist(){
 	return itemList;
 }
+
+
+// 자동 가격 필드 데이터 검증
+input_price.bind('keydown', checkNumberValue);
+input_price.bind('keyup', checkNumberValue);
+
+function checkNumberValue(){
+	var target = $(this);
+
+	if(target.val() === ''){
+		target.val('');
+		return;
+	}
+
+	if(target.val().split('')[0] === '0'){
+		target.val('');
+		return;
+	}
+
+	if(target.val().length >= 8){
+		alert('입력하신 금액이 너무 높습니다.');
+		target.val('');
+		return;
+	}
+}
