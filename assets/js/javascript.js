@@ -8,6 +8,7 @@ var btnAddItem = $('.btn_add_item');
 var item_table = $('.item_table');
 
 
+
 // 리스트 추가
 btnAddItem.bind('click', function (e) {
   e.preventDefault();
@@ -203,8 +204,6 @@ function drawOrderedList(target, list){
   for(var i=0,size=obj.length;i<size;i++){
 
   }
-
-
 }
 
 
@@ -217,11 +216,4 @@ function drawOrderedList(target, list){
 // TODO 5. 선택한 리스트를 주문하기 버튼을 동작시켰을 때 주문하기 이벤트를 발생시킨 후에 주문된 리스트가 사라질 수 있도록 한다.
 // TODO 6. 주문된 리스트의 내용은 주문된 리스트 영역에 출력이 될 수 있도록 한다.
 // TODO 7. 수량 컬럼을 추가하여 수량을 선택할 수 있도록 한다.
-
-
-
-
-
-
-
 
