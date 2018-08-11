@@ -144,6 +144,7 @@ function userInputHandler(e){
 	return data;
 }
 
+
 function getWholeDatalist(){
 	return itemList;
 }
@@ -172,3 +173,5 @@ function checkNumberValue(){
 		return;
 	}
 }
+
+
