@@ -17,6 +17,8 @@ function extractUserValue(){
 		name=input_item.val(),
 		price=input_price.val();
 
+	console.log(name);
+
 	if(!validateUserInput(name, price)){
 		return;
 	}
@@ -97,6 +99,7 @@ function drawList(data){
 	html += '<td><input type="checkbox" class="check_item" data-id="'+data.id+'" onchange="checkHandler(this);" /></td>';
 	html += '<td class="name">'+data.name+'</td>';
 	html += '<td class="price" data-price="'+data.price+'">₩' + commaNumber(data.price) + '</td>';
+	html += '<td class="amount">'+data.amount+'</td>';
 	html += '</tr>';
 	order_table.find('tbody').append(html);
 
@@ -128,8 +131,13 @@ function searchListByUniqueId(target){
 	return -1;
 }
 
+/**
+ * 체크박스 선택시
+ * @param id
+ */
 function checkHandler(id){
-	console.log( searchListByUniqueId(id) );
+	searchListByUniqueId(id);
+	displaySelectedCount();
 }
 
 /**
@@ -240,7 +248,7 @@ btn_delete_item.bind('click', function (){
 	alert('삭제되었습니다.');
 	drawWholeList();
 	displayPriceAmount();
-
+	displaySelectedCount();
 
 });
 
@@ -270,4 +278,26 @@ function getPriceAmount(){
 
 function displayPriceAmount(){
 	$('.txt-amount').text(commaNumber(getPriceAmount()));
+}
+
+/**
+ * 삭제할 때와 리스트를 선택할 때 호출하여 총 선택된 리스트 갯수를 찾을 수 있도록 한다.
+ * @returns {Array}
+ */
+function getSelectedCount(){
+	var count=0;
+	for(var i=0,size=itemList.length;i<size;i++){
+		if(itemList[i] === null){
+			continue;
+		}
+
+		if(itemList[i]['is_checked']){
+			count+=1;
+		}
+	}
+	return count;
+}
+
+function displaySelectedCount(){
+	$('.txt-count').text(commaNumber(getSelectedCount()));
 }
