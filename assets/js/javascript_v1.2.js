@@ -166,6 +166,7 @@ function userInputHandler(e){
 
 	setTimeout(function () {
 		resetUserInput();
+		displayPriceAmount();
 	}, 300);
 
 
@@ -183,6 +184,9 @@ function getWholeDataList(){
 input_price.bind('keydown', checkNumberValue);
 input_price.bind('keyup', checkNumberValue);
 
+/**
+ * 금액값을 처리
+ */
 function checkNumberValue(){
 	var target = $(this);
 
@@ -235,6 +239,9 @@ btn_delete_item.bind('click', function (){
 
 	alert('삭제되었습니다.');
 	drawWholeList();
+	displayPriceAmount();
+
+
 });
 
 
@@ -244,4 +251,23 @@ function drawWholeList(){
 	for(var i=0,size=itemList.length;i<size;i++){
 		drawList(itemList[i]);
 	}
+}
+
+/**
+ *
+ * @returns {number}
+ */
+function getPriceAmount(){
+	var amount=0;
+	for(var i=0,size=itemList.length;i<size;i++){
+		if(itemList[i] === null){
+			continue;
+		}
+		amount+=parseInt(itemList[i]['price'], 10);
+	}
+	return amount;
+}
+
+function displayPriceAmount(){
+	$('.txt-amount').text(commaNumber(getPriceAmount()));
 }
