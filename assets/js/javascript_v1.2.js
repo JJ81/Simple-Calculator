@@ -4,6 +4,7 @@ var input_item = $('.txt_item');
 var input_price = $('.txt_price');
 var order_table =  $('.item_table');
 var btn_add_item = $('.btn_add_item');
+var btn_delete_item=$('.js-btn-delete');
 var itemList = [];
 
 btn_add_item.bind('click', userInputHandler);
@@ -87,13 +88,17 @@ function createUniqueId(len){
  * HTML을 그려 넣는다. append data per a list
  */
 function drawList(data){
+	if(data === null){
+		return;
+	}
+
 	var html = '';
 	html += '<tr data-id="'+data.id+'">';
 	html += '<td><input type="checkbox" class="check_item" data-id="'+data.id+'" onchange="checkHandler(this);" /></td>';
 	html += '<td class="name">'+data.name+'</td>';
 	html += '<td class="price" data-price="'+data.price+'">₩' + commaNumber(data.price) + '</td>';
 	html += '</tr>';
-	order_table.append(html);
+	order_table.find('tbody').append(html);
 
 	return html;
 }
@@ -104,7 +109,12 @@ function drawList(data){
 function searchListByUniqueId(target){
 	var uid=$(target).attr('data-id');
 	console.log(uid);
+
 	for(var i=0,size=itemList.length;i<size;i++){
+		if(itemList[i] === null){
+			continue;
+		}
+
 		if(itemList[i]['id'] === uid){
 			if(itemList[i]['is_checked']){
 				itemList[i]['is_checked']=false;
@@ -163,9 +173,10 @@ function userInputHandler(e){
 }
 
 
-function getWholeDatalist(){
+function getWholeDataList(){
 	return itemList;
 }
+
 
 
 // 자동 가격 필드 데이터 검증
@@ -189,5 +200,48 @@ function checkNumberValue(){
 		alert('입력하신 금액이 너무 높습니다.');
 		target.val('');
 		return;
+	}
+}
+
+// 선택한 아이템을 삭제
+btn_delete_item.bind('click', function (){
+	var checked_list = [];
+
+	// 선택된 리스트를 수집
+	for(var i=0,size=itemList.length;i<size;i++){
+		if(itemList[i] === null){
+			continue;
+		}
+		if(itemList[i]['is_checked']){
+			checked_list.push(i);
+		}
+	}
+
+	// length가 0이라면 삭제할 리스트를 선택하세요.
+	if(checked_list.length === 0){
+		alert('삭제할 리스트를 확인하세요.');
+		return;
+	}
+
+	// console.log(checked_list);
+
+	// 삭제 처리
+	for(var j=0,len=checked_list.length;j<len;j++){
+		// console.log('deleted number : ' + j);
+
+		itemList[checked_list[j]]=null;
+
+	}
+
+	alert('삭제되었습니다.');
+	drawWholeList();
+});
+
+
+function drawWholeList(){
+	order_table.find('tbody').children().remove();
+
+	for(var i=0,size=itemList.length;i<size;i++){
+		drawList(itemList[i]);
 	}
 }
