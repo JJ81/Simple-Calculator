@@ -58,7 +58,8 @@ function makeDataList(){
 			id : createUniqueId(5),
 			name: tmp.name,
 			price: tmp.price,
-			amount: tmp.amount
+			amount: tmp.amount,
+			is_checked : false
 		};
 
 		// 데이터를 저장소에 추가한다.
@@ -88,7 +89,7 @@ function createUniqueId(len){
 function drawList(data){
 	var html = '';
 	html += '<tr data-id="'+data.id+'">';
-	html += '<td><input type="checkbox" class="check_item" /></td>';
+	html += '<td><input type="checkbox" class="check_item" data-id="'+data.id+'" onchange="checkHandler(this);" /></td>';
 	html += '<td class="name">'+data.name+'</td>';
 	html += '<td class="price" data-price="'+data.price+'">₩' + commaNumber(data.price) + '</td>';
 	html += '</tr>';
@@ -100,8 +101,25 @@ function drawList(data){
 /**
  * 고유 아이디값을 통해서 배열의 순서를 리턴해준다.
  */
-function searchListByUniqueId(){
+function searchListByUniqueId(target){
+	var uid=$(target).attr('data-id');
+	console.log(uid);
+	for(var i=0,size=itemList.length;i<size;i++){
+		if(itemList[i]['id'] === uid){
+			if(itemList[i]['is_checked']){
+				itemList[i]['is_checked']=false;
+			}else{
+				itemList[i]['is_checked']=true;
+			}
 
+			return i;
+		}
+	}
+	return -1;
+}
+
+function checkHandler(id){
+	console.log( searchListByUniqueId(id) );
 }
 
 /**
@@ -173,5 +191,3 @@ function checkNumberValue(){
 		return;
 	}
 }
-
-
