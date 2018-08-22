@@ -110,7 +110,7 @@ btn_add_item.bind("click", userInputHandler) ;
     price = input_price.val(); 
     
     console.log(menu);
-    if(validateUserInput(menu,price)===false) {
+    if(validateUserInput(menu,price)===false) {   //if(!validateUserInput(menu,price)) 라고 쓸 수도 있다. 
         return; 
     }
 
