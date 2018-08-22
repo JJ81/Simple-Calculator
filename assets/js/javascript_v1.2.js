@@ -13,34 +13,32 @@ btn_add_item.bind('click', userInputHandler);
  */
 function extractUserValue(){
 	var
-		name=input_item.val(),
+		menu=input_item.val(),
 		price=input_price.val();
 
-	if(!validateUserInput(name, price)){
+	if(!validateUserInput(menu, price)){
 		return;
 	}
 
-	return {
-		name : name,
+	return {                                  
+		menu : menu,
 		price : parseInt(price, 10),
-		amount: 1
-	};
+		amount: 1 
+	} ;
 }
 
 /**
  * 유저가 입력한 값에 대해서 유효한지 검사를 진행한다.
  */
-function validateUserInput(name, price){
-	if(name === '' || price === ''){
+function validateUserInput(menu, price){
+	if(menu === '' || price === ''){
 		alert('입력값을 확인해주세요.');
 		return false;
 	}
-
-	if(isNaN(price)){
+	if(isNaN(price)){                          
 		alert('가격은 숫자만 입력가능합니다.');
 		return false;
 	}
-
 	return true;
 }
 
@@ -56,7 +54,7 @@ function makeDataList(){
 
 		var dataSettings = {
 			id : createUniqueId(5),
-			name: tmp.name,
+			menu: tmp.menu,
 			price: tmp.price,
 			amount: tmp.amount
 		};
@@ -89,14 +87,13 @@ function drawList(data){
 	var html = '';
 	html += '<tr data-id="'+data.id+'">';
 	html += '<td><input type="checkbox" class="check_item" /></td>';
-	html += '<td class="name">'+data.name+'</td>';
+	html += '<td class="menu">'+data.menu+'</td>';
 	html += '<td class="price" data-price="'+data.price+'">₩' + commaNumber(data.price) + '</td>';
 	html += '</tr>';
 	order_table.append(html);
 
 	return html;
 }
-
 /**
  * 고유 아이디값을 통해서 배열의 순서를 리턴해준다.
  */

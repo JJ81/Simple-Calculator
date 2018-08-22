@@ -34,7 +34,7 @@ btnAddItem.bind('click', function (e) {
     item.val('');
     price.val('');
 
-    // focus on the name field.
+    // focus on the menu field.
     setTimeout(function () {
       item.focus();
     }, 300);
@@ -84,7 +84,7 @@ function searchList(id){
 function calcAmount(el){
   var
   id = $(el).parent().parent().attr('data-id'),
-  name = $(el).parent().parent().find('.name').text(),
+  menu = $(el).parent().parent().find('.menu').text(),
   price = parseInt($(el).parent().parent().find('.price').attr('data-price'), 10),
   isChecked = $(el).is(":checked"),
   idx = searchList($(el).parent().parent().attr('data-id'));
@@ -92,12 +92,12 @@ function calcAmount(el){
   if(idx == null){
       obj.push({
       id: id,
-      name: name,
+      menu: menu,
       price: price,
       isChecked: isChecked
     });
   }else{
-    obj[idx]['name'] = name;
+    obj[idx]['menu'] = menu;
     obj[idx]['price'] = price;
     obj[idx]['isChecked'] = isChecked;
   }
@@ -141,11 +141,11 @@ function getListCount(){
 }
 
 // 리스트 추가
-function appendList(target, name, price){
+function appendList(target, menu, price){
     var str = '';
     str += '<tr data-id="'+makeRandomId(5)+'">';
     str += '<td><input type="checkbox" class="check_item" onClick="calcAmount(this);" /></td>';
-    str += '<td class="name">'+name+'</td>';
+    str += '<td class="menu">'+menu+'</td>';
     str += '<td class="price" data-price="'+price+'">₩' + commaNumber(price) + '</td>';
     str += '</tr>';
     target.append(str);
